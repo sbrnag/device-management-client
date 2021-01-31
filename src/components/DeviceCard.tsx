@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     },
 });
 
-const DeviceCard: React.FC<{ devices: IDevice[] }> = ({ devices }) => {
+const DeviceCard: React.FC<{ devices: IDevice[], deleteDevice: any }> = ({ devices, deleteDevice }) => {
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
 
@@ -77,14 +77,15 @@ const DeviceCard: React.FC<{ devices: IDevice[] }> = ({ devices }) => {
                                             CheckOut
                                     </Button>}
 
-                                    <Button size="small" color="secondary" variant="contained">
+                                    <Button size="small" color="secondary" variant="contained"
+                                        onClick={() => deleteDevice}>
                                         Delete
                                     </Button>
                                 </CardActions>
                             </Card>
 
                         </Grid>
-                    )};
+                    )}
                 </Grid>
             ) : (
                     <Typography variant="h5">No Devies found in strore</Typography>

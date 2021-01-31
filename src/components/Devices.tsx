@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import { DevicesContext } from '../contexts/DeviceContextProvider';
 import Title from "./Title";
+import AddDevice from "./AddDevice";
 import DeviceCard from './DeviceCard';
 import ShowAvaliableFilter from './Filter';
 import { IDevice } from "../model/Device";
@@ -26,19 +26,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Devices() {
     const classes = useStyles();
-    const { devices, loading, error } = useContext(DevicesContext);
+    const { devices, loading, error, saveDevice, saveError, deleteDevice } = useContext(DevicesContext);
     console.log(`devices length : ${devices.length}`);
-    const [showOnlyAvalible, setShowOnlyAvalible] = useState<boolean>(false);
+    const [showOnlyAvaliable, setShowOnlyAvaliable] = useState<boolean>(false);
     const [avaliableDevices, setAvaliableDevices] = useState<IDevice[]>([]);
 
     useEffect(() => {
-        console.log(`inside useEffect ${showOnlyAvalible}`);
-        if (showOnlyAvalible) {
+        if (showOnlyAvaliable) {
             setAvaliableDevices(devices.filter((device: IDevice) => !device.isCheckedOut));
         } else {
             setAvaliableDevices(devices);
         }
-    }, [showOnlyAvalible, devices]);
+    }, [showOnlyAvaliable, devices]);
 
     return (
         <div className={classes.root}>
@@ -46,20 +45,10 @@ export default function Devices() {
             <Backdrop className={classes.backdrop} open={loading}>
                 <CircularProgress />
             </Backdrop>
-
+            <AddDevice saveDevice={saveDevice} saveError={saveError}/>
             <Title devicesCount={devices.length} />
-            <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={showOnlyAvalible}
-                        onChange={() => setShowOnlyAvalible(!showOnlyAvalible)}
-                        value="primary"
-                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                        label="Show only avaliable devices"
-                    />}
-                label="Show Only Avaliable Devices"
-            />
-            <DeviceCard devices={avaliableDevices} />
+            <ShowAvaliableFilter showOnlyAvaliable={showOnlyAvaliable} setShowOnlyAvaliable={setShowOnlyAvaliable} />
+            <DeviceCard devices={avaliableDevices} deleteDevice={deleteDevice}/>
         </div>
     );
 }
