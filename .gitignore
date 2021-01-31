@@ -2,8 +2,6 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
 
 # testing
 /coverage
@@ -11,7 +9,9 @@
 # production
 /build
 
+
 # misc
+.eslintcache
 .DS_Store
 .env.local
 .env.development.local
