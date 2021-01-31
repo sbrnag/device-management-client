@@ -8,10 +8,11 @@ function App() {
   return (
     <React.Fragment>
       <Header />
-      <DeviceContextProvider>
-        <Device />
-      </DeviceContextProvider>
+        <DeviceContextProvider>
+          <Device />
+        </DeviceContextProvider>
     </React.Fragment>
+
   );
 }
 

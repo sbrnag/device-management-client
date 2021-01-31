@@ -21,8 +21,8 @@ const Title: React.FC<{ devicesCount: number }> = ({devicesCount}) => {
 
     return (
         <div className={classes.root}>
-            <Typography variant="h4" gutterBottom>
-                Devices {devicesCount}
+            <Typography variant="h6" gutterBottom>
+                Total Devices in store {devicesCount}
             </Typography>
         </div>
     );
